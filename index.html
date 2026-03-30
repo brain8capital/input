@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v3 -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -479,7 +480,7 @@ Object.keys(cfg).forEach(function(id) {
   });
 });
 function g(id) {
-  if (raw[id] !== undefined && raw[id] !== '') return raw[id];
+  if (raw[id] !== undefined && raw[id] !== '') return raw[id].toString().replace(/\D/g,'');
   var el = document.getElementById(id);
   if (!el) return '0';
   var v = el.value.replace(/\D/g, '');
