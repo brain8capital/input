@@ -481,7 +481,9 @@ Object.keys(cfg).forEach(function(id) {
 function g(id) {
   if (raw[id] !== undefined && raw[id] !== '') return raw[id];
   var el = document.getElementById(id);
-  return el ? (el.value.trim() || '0') : '0';
+  if (!el) return '0';
+  var v = el.value.replace(/\D/g, '');
+  return v || '0';
 }
 
 function enviar() {
@@ -494,22 +496,22 @@ function enviar() {
     'Perfil: ' + (document.getElementById('f_perfil').value || '--'),
     'Local: ' + local, '',
     'TERRENO',
-    'Área: ' + g('f_área') + ' m2',
-    'Avaliação: R$ ' + g('f_aval'),
+    'Área: ' + miles(parseInt(g('f_área')||0)) + ' m2',
+    'Avaliação: R$ ' + miles(parseInt(g('f_aval')||0)),
     'Permuta: ' + g('f_perm') + '%',
-    'Comissão: R$ ' + g('f_com'),
-    'Arras: R$ ' + g('f_arras'),
-    'Outorga: R$ ' + g('f_outorga'), '',
+    'Comissão: R$ ' + miles(parseInt(g('f_com')||0)),
+    'Arras: R$ ' + miles(parseInt(g('f_arras')||0)),
+    'Outorga: R$ ' + miles(parseInt(g('f_outorga')||0)), '',
     'PROJETO',
-    'Construída: ' + g('f_constr') + ' m2',
-    'Subsolo: ' + g('f_sub') + ' m2',
-    'Priv. res.: ' + g('f_pres') + ' m2',
-    'Priv. com.: ' + g('f_pcom') + ' m2', '',
+    'Construída: ' + miles(parseInt(g('f_constr')||0)) + ' m2',
+    'Subsolo: ' + miles(parseInt(g('f_sub')||0)) + ' m2',
+    'Priv. res.: ' + miles(parseInt(g('f_pres')||0)) + ' m2',
+    'Priv. com.: ' + miles(parseInt(g('f_pcom')||0)) + ' m2', '',
     'MERCADO',
     'Padrão: ' + (document.getElementById('f_padrão').value || '--'),
-    'Unidades: ' + g('f_un'),
-    'Preço res.: R$ ' + g('f_pr') + '/m2',
-    'Preço com.: R$ ' + g('f_pc') + '/m2', '',
+    'Unidades: ' + miles(parseInt(g('f_un')||0)),
+    'Preço res.: R$ ' + miles(parseInt(g('f_pr')||0)) + '/m2',
+    'Preço com.: R$ ' + miles(parseInt(g('f_pc')||0)) + '/m2', '',
     '',
     'Obs: ' + (document.getElementById('f_obs').value.trim() || '-'), '',
     'CANAL: ' + (document.getElementById('f_canal').checked ? 'AUTORIZADO para @brain8capital' : 'Privado - nao autorizado')
